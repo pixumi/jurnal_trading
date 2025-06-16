@@ -12,6 +12,11 @@
       padding: 0;
       display: flex;
       justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode {
+      background-color: #121826;
     }
 
     .container {
@@ -24,12 +29,23 @@
       padding-right: 16px;
       border-radius: 16px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.dark-mode .container {
+      background-color: #1e293b;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
     }
 
     h1 {
       text-align: center;
       color: #0277bd;
       margin-bottom: 24px;
+      transition: color 0.3s ease;
+    }
+
+    body.dark-mode h1 {
+      color: #38bdf8;
     }
 
     form {
@@ -51,6 +67,11 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      transition: color 0.3s ease;
+    }
+
+    body.dark-mode label {
+      color: #cbd5e1;
     }
 
     input, select, textarea {
@@ -60,15 +81,29 @@
       font-size: 15px;
       width: 100%;
       box-sizing: border-box;
-      transition: border-color 0.2s ease;
+      transition: all 0.3s ease;
       appearance: none;
       resize: vertical;
       font-family: inherit;
     }
 
+    body.dark-mode input,
+    body.dark-mode select,
+    body.dark-mode textarea {
+      background-color: #334155;
+      border-color: #475569;
+      color: #e2e8f0;
+    }
+
     input:focus, select:focus, textarea:focus {
       border-color: #0288d1;
       outline: none;
+    }
+
+    body.dark-mode input:focus,
+    body.dark-mode select:focus,
+    body.dark-mode textarea:focus {
+      border-color: #38bdf8;
     }
 
     input[type="date"]::-webkit-calendar-picker-indicator {
@@ -80,6 +115,10 @@
       position: absolute;
       top: 0;
       left: 0;
+    }
+
+    body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.8);
     }
 
     .date-wrapper {
@@ -97,8 +136,16 @@
       transition: background-color 0.2s ease;
     }
 
+    body.dark-mode button {
+      background-color: #0ea5e9;
+    }
+
     button:hover {
       background-color: #0277bd;
+    }
+
+    body.dark-mode button:hover {
+      background-color: #0284c7;
     }
 
     table {
@@ -106,6 +153,11 @@
       border-collapse: collapse;
       margin-top: 20px;
       font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode table {
+      border-color: #475569;
     }
 
     th, td {
@@ -113,11 +165,23 @@
       border: 1px solid #b0bec5;
       text-align: center;
       vertical-align: middle;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode th,
+    body.dark-mode td {
+      border-color: #475569;
     }
 
     th {
       background-color: #b3e5fc;
       color: #01579b;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode th {
+      background-color: #1e40af;
+      color: #dbeafe;
     }
 
     .buy-box {
@@ -126,6 +190,12 @@
       font-weight: bold;
       padding: 4px 10px;
       border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .buy-box {
+      background-color: #14532d;
+      color: #bbf7d0;
     }
 
     .sell-box {
@@ -134,6 +204,12 @@
       font-weight: bold;
       padding: 4px 10px;
       border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .sell-box {
+      background-color: #7f1d1d;
+      color: #fecaca;
     }
 
     .win-box {
@@ -142,6 +218,12 @@
       font-weight: bold;
       padding: 4px 10px;
       border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .win-box {
+      background-color: #14532d;
+      color: #bbf7d0;
     }
 
     .loss-box {
@@ -150,6 +232,12 @@
       font-weight: bold;
       padding: 4px 10px;
       border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .loss-box {
+      background-color: #7f1d1d;
+      color: #fecaca;
     }
 
     .action-btn {
@@ -160,10 +248,20 @@
       font-size: 14px;
       margin: 0 2px;
       border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode .action-btn {
+      background-color: #334155;
+      color: #e2e8f0;
     }
 
     .action-btn:hover {
       background-color: #cccccc;
+    }
+
+    body.dark-mode .action-btn:hover {
+      background-color: #475569;
     }
 
     .note-cell {
@@ -174,6 +272,11 @@
       cursor: pointer;
       color: #0288d1;
       text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    body.dark-mode .note-cell {
+      color: #38bdf8;
     }
 
     .modal {
@@ -200,6 +303,13 @@
         overflow-y: auto;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         color: #01579b;
+        transition: all 0.3s ease;
+    }
+
+    body.dark-mode .modal-content {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .modal-close {
@@ -215,6 +325,10 @@
         transition: transform 0.2s ease;
     }
 
+    body.dark-mode .modal-close {
+      color: #e2e8f0;
+    }
+
    textarea#modalText {
         width: 100%;
         border-radius: 8px;
@@ -225,6 +339,13 @@
         font-size: 14px;
         box-sizing: border-box;
         margin-top: 14px;
+        transition: all 0.3s ease;
+    }
+
+    body.dark-mode textarea#modalText {
+      background-color: #334155;
+      border-color: #475569;
+      color: #e2e8f0;
     }
 
     .modal-close:hover {
@@ -256,142 +377,262 @@
         border-collapse: collapse;
     }  
 
-     .switch {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    display: inline-block;
-    width: 50px;
-    height: 28px;
-  }
-  .switch input {display:none;}
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    background-color: #ccc;
-    border-radius: 34px;
-    top: 0; left: 0; right: 0; bottom: 0;
-    transition: .4s;
-  }
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 22px;
-    width: 22px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    border-radius: 50%;
-    transition: .4s;
-  }
-  input:checked + .slider {
-    background-color: var(--primary-color);
-  }
-  input:checked + .slider:before {
-    transform: translateX(22px);
-  }
+    .dark-mode-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      padding: 8px 12px;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    body.dark-mode .dark-mode-toggle {
+      background: #1e293b;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
+    .dark-mode-toggle span {
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .dark-mode-toggle span {
+      color: #cbd5e1;
+    }
+    
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .toggle-slider {
+      background-color: #0288d1;
+    }
+    
+    body.dark-mode input:checked + .toggle-slider {
+      background-color: #0ea5e9;
+    }
+    
+    input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
 
-  /* Analytics Section */
-  .analytics-container {
-    background-color: #f5f9ff;
-    border-radius: 12px;
-    padding: 20px;
-    margin: 20px 0;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    border: 1px solid #b3e5fc;
-  }
-  
-  .analytics-title {
-    text-align: center;
-    color: #0277bd;
-    margin-top: 0;
-    margin-bottom: 16px;
-    font-size: 1.4em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  
-  .analytics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-  }
-  
-  .stat-box {
-    background-color: white;
-    border-radius: 10px;
-    padding: 15px 10px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    border: 1px solid #e1f5fe;
-  }
-  
-  .stat-label {
-    font-size: 0.9em;
-    color: #01579b;
-    margin-bottom: 6px;
-    font-weight: 600;
-  }
-  
-  .stat-value {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #0288d1;
-  }
-  
-  .winrate-value {
-    color: #256029;
-  }
-  
-  .lossrate-value {
-    color: #c62828;
-  }
-  
-  .profit-factor-value {
-    color: #2e7d32;
-  }
-  
-  .stat-subtext {
-    font-size: 0.8em;
-    color: #78909c;
-    margin-top: 4px;
-  }
-  
-  .analytics-chart {
-    margin-top: 20px;
-    height: 30px;
-    background-color: #e1f5fe;
-    border-radius: 6px;
-    overflow: hidden;
-    display: flex;
-  }
-  
-  .win-bar {
-    height: 100%;
-    background-color: #66bb6a;
-    transition: width 0.5s ease;
-  }
-  
-  .loss-bar {
-    height: 100%;
-    background-color: #ef5350;
-    transition: width 0.5s ease;
-  }
-  
-  .chart-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
-    font-size: 0.85em;
-    color: #546e7a;
-  }
+    /* Analytics Section */
+    .analytics-container {
+      background-color: #f5f9ff;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border: 1px solid #b3e5fc;
+      transition: all 0.3s ease;
+    }
+    
+    body.dark-mode .analytics-container {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .analytics-title {
+      text-align: center;
+      color: #0277bd;
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 1.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .analytics-title {
+      color: #38bdf8;
+    }
+    
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+    
+    .stat-box {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px 10px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      border: 1px solid #e1f5fe;
+      transition: all 0.3s ease;
+    }
+    
+    body.dark-mode .stat-box {
+      background-color: #334155;
+      border: 1px solid #475569;
+    }
+    
+    .stat-label {
+      font-size: 0.9em;
+      color: #01579b;
+      margin-bottom: 6px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .stat-label {
+      color: #93c5fd;
+    }
+    
+    .stat-value {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #0288d1;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .stat-value {
+      color: #38bdf8;
+    }
+    
+    .winrate-value {
+      color: #256029;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .winrate-value {
+      color: #4ade80;
+    }
+    
+    .lossrate-value {
+      color: #c62828;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .lossrate-value {
+      color: #f87171;
+    }
+    
+    .profit-factor-value {
+      color: #2e7d32;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .profit-factor-value {
+      color: #4ade80;
+    }
+    
+    .stat-subtext {
+      font-size: 0.8em;
+      color: #78909c;
+      margin-top: 4px;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .stat-subtext {
+      color: #94a3b8;
+    }
+    
+    .analytics-chart {
+      margin-top: 20px;
+      height: 30px;
+      background-color: #e1f5fe;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      transition: background-color 0.3s ease;
+    }
+    
+    body.dark-mode .analytics-chart {
+      background-color: #334155;
+    }
+    
+    .win-bar {
+      height: 100%;
+      background-color: #66bb6a;
+      transition: width 0.5s ease, background-color 0.3s ease;
+    }
+    
+    body.dark-mode .win-bar {
+      background-color: #4ade80;
+    }
+    
+    .loss-bar {
+      height: 100%;
+      background-color: #ef5350;
+      transition: width 0.5s ease, background-color 0.3s ease;
+    }
+    
+    body.dark-mode .loss-bar {
+      background-color: #f87171;
+    }
+    
+    .chart-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 0.85em;
+      color: #546e7a;
+      transition: color 0.3s ease;
+    }
+    
+    body.dark-mode .chart-labels {
+      color: #94a3b8;
+    }
 
   </style>
 </head>
 
 <body>
+  <!-- Dark Mode Toggle -->
+  <div class="dark-mode-toggle">
+    <span>Dark Mode</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="toggle-slider"></span>
+    </label>
+  </div>
   
   <div class="container">
     <h1>📜Jurnal Trading📜</h1>
@@ -518,6 +759,7 @@
     const modal = document.getElementById('modal');
     const modalText = document.getElementById('modalText');
     const modalClose = document.getElementById('modalClose');
+    const darkModeToggle = document.getElementById('darkModeToggle');
 
     // Analytics elements
     const totalTradesEl = document.getElementById('totalTrades');
@@ -531,6 +773,7 @@
     const lossPercentageEl = document.getElementById('lossPercentage');
 
     let trades = JSON.parse(localStorage.getItem('trades')) || [];
+    let isDarkMode = localStorage.getItem('darkMode') === 'true';
 
     // Fungsi untuk memaksa input pair menjadi uppercase
     function forceUppercaseInput() {
@@ -714,6 +957,23 @@
       }
     });
 
+    // Dark mode toggle functionality
+    function toggleDarkMode() {
+      isDarkMode = !isDarkMode;
+      document.body.classList.toggle('dark-mode', isDarkMode);
+      localStorage.setItem('darkMode', isDarkMode);
+      darkModeToggle.checked = isDarkMode;
+    }
+
+    // Initialize dark mode
+    function initDarkMode() {
+      document.body.classList.toggle('dark-mode', isDarkMode);
+      darkModeToggle.checked = isDarkMode;
+    }
+
+    // Set up event listeners
+    darkModeToggle.addEventListener('change', toggleDarkMode);
+
   document.addEventListener('DOMContentLoaded', () => {
     const setTodayDate = () => {
         const today = new Date().toISOString().split('T')[0];
@@ -724,6 +984,7 @@
     setTodayDate();
     forceUppercaseInput(); // Aktifkan uppercase input
     renderTrades(); // Initialize analytics on load
+    initDarkMode(); // Initialize dark mode
 
     // Jika form disubmit, tetap set ulang date
     const forms = document.querySelectorAll('form');
