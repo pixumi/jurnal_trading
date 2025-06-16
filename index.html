@@ -5,6 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jurnal Trading</title>
   <style>
+    /* Header Dinamis */
+    #dynamicHeader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    body.dark-mode #dynamicHeader {
+      background-color: #1e293b;
+      border-bottom: 1px solid #334155;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+    }
+    
+    #dynamicHeader.hidden {
+      transform: translateY(-100%);
+    }
+    
+    .header-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0288d1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    body.dark-mode .header-title {
+      color: #38bdf8;
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    /* Tombol Export */
+    .export-btn {
+      background-color: #0288d1;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    body.dark-mode .export-btn {
+      background-color: #0ea5e9;
+    }
+    
+    .export-btn:hover {
+      background-color: #0277bd;
+    }
+    
+    body.dark-mode .export-btn:hover {
+      background-color: #0284c7;
+    }
+    
+    /* Perbaikan warna teks di dark mode untuk tabel */
+    body.dark-mode td {
+      color: #e2e8f0 !important;
+    }
+    
+    body.dark-mode td.buy-box,
+    body.dark-mode td.sell-box,
+    body.dark-mode td.win-box,
+    body.dark-mode td.loss-box {
+      color: inherit !important; /* Tetap gunakan warna asli untuk box khusus */
+    }
+    
+    /* Penyesuaian container untuk header */
+    .container {
+      margin-top: 70px; /* Ruang untuk header */
+    }
+
+    /* Style yang sudah ada sebelumnya */
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #e0f7fa;
@@ -364,6 +456,23 @@
         .note-cell {
             max-width: 120px;
         }
+        
+        #dynamicHeader {
+          padding: 10px 15px;
+        }
+        
+        .header-title {
+          font-size: 1rem;
+        }
+        
+        .header-actions {
+          gap: 8px;
+        }
+        
+        .export-btn {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
     }
 
     .table-wrapper {
@@ -378,24 +487,10 @@
     }  
 
     .dark-mode-toggle {
-      position: fixed;
-      top: 16px;
-      right: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #fff;
-      padding: 8px 12px;
-      border-radius: 30px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      z-index: 100;
-      cursor: pointer;
       transition: all 0.3s ease;
-    }
-    
-    body.dark-mode .dark-mode-toggle {
-      background: #1e293b;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     
     .dark-mode-toggle span {
@@ -620,19 +715,102 @@
     body.dark-mode .chart-labels {
       color: #94a3b8;
     }
-
+    
+    /* Warna baris tabel berdasarkan tanggal */
+    .row-even-date {
+      background-color: #ffffff;
+    }
+    
+    .row-odd-date {
+      background-color: #f3faff;
+    }
+    
+    body.dark-mode .row-even-date {
+      background-color: #1e293b;
+    }
+    
+    body.dark-mode .row-odd-date {
+      background-color: #28374d;
+    }
+    
+    /* File input untuk import */
+    #importFileInput {
+      display: none;
+    }
+    
+    /* Tombol Import/Export baru */
+    .data-btn {
+      background-color: #0288d1;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    body.dark-mode .data-btn {
+      background-color: #0ea5e9;
+    }
+    
+    .data-btn:hover {
+      background-color: #0277bd;
+    }
+    
+    body.dark-mode .data-btn:hover {
+      background-color: #0284c7;
+    }
+    
+    /* Penyesuaian header actions */
+    .header-actions {
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    
+    @media (max-width: 768px) {
+      .header-actions {
+        gap: 8px;
+      }
+      
+      .data-btn span:last-child {
+        display: none;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <!-- Dark Mode Toggle -->
-  <div class="dark-mode-toggle">
-    <span>Dark Mode</span>
-    <label class="toggle-switch">
-      <input type="checkbox" id="darkModeToggle">
-      <span class="toggle-slider"></span>
-    </label>
-  </div>
+  <!-- Header Dinamis -->
+  <header id="dynamicHeader">
+    <div class="header-title">
+      <span>📜</span>
+      <span>Jurnal Trading</span>
+    </div>
+    
+    <div class="header-actions">
+      <!-- Tombol baru untuk Export/Import -->
+      <button id="exportJsonBtn" class="data-btn">
+        <span>💾</span>
+        <span>Export Data</span>
+      </button>
+      <button id="importJsonBtn" class="data-btn">
+        <span>📂</span>
+        <span>Import Data</span>
+      </button>
+      
+      <div class="dark-mode-toggle">
+        <span>Dark Mode</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="darkModeToggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </header>
   
   <div class="container">
     <h1>📜Jurnal Trading📜</h1>
@@ -751,7 +929,9 @@
             <textarea id="modalText" readonly rows="8" style="width: 100%; border-radius: 8px; border: 1px solid #ccc; padding: 10px; resize: vertical; font-family: inherit; font-size: 14px; box-sizing: border-box;"></textarea>
         </div>
     </div>
-
+    
+    <!-- Input file untuk import -->
+    <input type="file" id="importFileInput" accept=".json">
 
   <script>
     const form = document.getElementById('tradeForm');
@@ -760,6 +940,10 @@
     const modalText = document.getElementById('modalText');
     const modalClose = document.getElementById('modalClose');
     const darkModeToggle = document.getElementById('darkModeToggle');
+    const exportJsonBtn = document.getElementById('exportJsonBtn');
+    const importJsonBtn = document.getElementById('importJsonBtn');
+    const importFileInput = document.getElementById('importFileInput');
+    const dynamicHeader = document.getElementById('dynamicHeader');
 
     // Analytics elements
     const totalTradesEl = document.getElementById('totalTrades');
@@ -774,6 +958,7 @@
 
     let trades = JSON.parse(localStorage.getItem('trades')) || [];
     let isDarkMode = localStorage.getItem('darkMode') === 'true';
+    let lastScrollTop = 0;
 
     // Fungsi untuk memaksa input pair menjadi uppercase
     function forceUppercaseInput() {
@@ -852,46 +1037,57 @@
         return;
         }
 
-          // Sorting trades by date descending (latest first)
+        // Sorting trades by date descending (latest first)
         trades.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+        // Untuk pewarnaan berdasarkan tanggal
+        let currentDate = null;
+        let dateGroupIndex = 0;
+        
         trades.forEach((data, index) => {
-        const entryClass = data.entry === "Buy" ? "buy-box" : "sell-box";
-        const wlClass = data.wl === "Win" ? "win-box" : "loss-box";
+          // Jika tanggal berbeda, ganti kelompok warna
+          if (currentDate !== data.date) {
+            currentDate = data.date;
+            dateGroupIndex = dateGroupIndex === 0 ? 1 : 0;
+          }
+          
+          const entryClass = data.entry === "Buy" ? "buy-box" : "sell-box";
+          const wlClass = data.wl === "Win" ? "win-box" : "loss-box";
+          const rowClass = dateGroupIndex === 0 ? "row-even-date" : "row-odd-date";
 
-        const row = document.createElement('tr');
+          const row = document.createElement('tr');
+          row.className = rowClass;
 
-        let notePreview = data.note ? data.note : '';
-     let noteDisplay = notePreview.length > 10 ? notePreview.substring(0, 10) + '...' : notePreview;
+          let notePreview = data.note ? data.note : '';
+          let noteDisplay = notePreview.length > 10 ? notePreview.substring(0, 10) + '...' : notePreview;
 
-      row.innerHTML = `
-      <td>${data.pair}</td>
-      <td>${data.date}</td>
-      <td>${data.session}</td>
-      <td><span class="${entryClass}">${data.entry}</span></td>
-      <td><span class="${wlClass}">${data.wl}</span></td>
-      <td>${data.rr}</td>
-      <td class="note-cell" data-index="${index}">${noteDisplay}</td>
-      <td>
-        <button class="action-btn" onclick="editTrade(${index})">✏️</button>
-        <button class="action-btn" onclick="deleteTrade(${index})">🗑️</button>
-      </td>
-        `;
-        historyBody.appendChild(row);
+          row.innerHTML = `
+          <td>${data.pair}</td>
+          <td>${data.date}</td>
+          <td>${data.session}</td>
+          <td><span class="${entryClass}">${data.entry}</span></td>
+          <td><span class="${wlClass}">${data.wl}</span></td>
+          <td>${data.rr}</td>
+          <td class="note-cell" data-index="${index}">${noteDisplay}</td>
+          <td>
+            <button class="action-btn" onclick="editTrade(${index})">✏️</button>
+            <button class="action-btn" onclick="deleteTrade(${index})">🗑️</button>
+          </td>
+          `;
+          historyBody.appendChild(row);
         });
 
         document.querySelectorAll('.note-cell').forEach(cell => {
-        cell.addEventListener('click', function() {
-      const idx = this.dataset.index;
-      const fullNote = trades[idx].note || '(Tidak ada catatan tambahan)';
-      modalText.value = fullNote;
-      modal.style.display = 'flex';
-        });
+          cell.addEventListener('click', function() {
+            const idx = this.dataset.index;
+            const fullNote = trades[idx].note || '(Tidak ada catatan tambahan)';
+            modalText.value = fullNote;
+            modal.style.display = 'flex';
+          });
         });
         
         calculateAnalytics(); // Calculate analytics after rendering
     }
-
 
     function saveTrades() {
       localStorage.setItem('trades', JSON.stringify(trades));
@@ -973,6 +1169,89 @@
 
     // Set up event listeners
     darkModeToggle.addEventListener('change', toggleDarkMode);
+    
+    // Fungsi untuk export ke JSON
+    function exportToJson() {
+      const dataStr = JSON.stringify(trades, null, 2);
+      const blob = new Blob([dataStr], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'jurnal_trading.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    
+    // Fungsi untuk import dari JSON
+    function importFromJson(file) {
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        try {
+          const importedTrades = JSON.parse(e.target.result);
+          
+          if (!Array.isArray(importedTrades)) {
+            throw new Error('Format file tidak valid');
+          }
+          
+          // Validasi sederhana untuk data
+          const isValid = importedTrades.every(trade => 
+            trade.pair && trade.date && trade.session && 
+            trade.entry && trade.wl && trade.rr
+          );
+          
+          if (!isValid) {
+            throw new Error('Data dalam file tidak valid');
+          }
+          
+          trades = importedTrades;
+          saveTrades();
+          renderTrades();
+          alert('Data berhasil diimpor!');
+        } catch (error) {
+          alert('Terjadi kesalahan saat mengimpor data: ' + error.message);
+        }
+      };
+      
+      reader.readAsText(file);
+    }
+    
+    // Event listener untuk tombol export JSON
+    exportJsonBtn.addEventListener('click', exportToJson);
+    
+    // Event listener untuk tombol import JSON
+    importJsonBtn.addEventListener('click', () => {
+      importFileInput.click();
+    });
+    
+    // Event listener untuk file input
+    importFileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        importFromJson(e.target.files[0]);
+        // Reset input agar bisa memilih file yang sama lagi
+        importFileInput.value = '';
+      }
+    });
+    
+    // Fungsi untuk mengontrol header saat scroll
+    function handleScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > lastScrollTop && scrollTop > 50) {
+        // Scroll ke bawah - sembunyikan header
+        dynamicHeader.classList.add('hidden');
+      } else {
+        // Scroll ke atas - tampilkan header
+        dynamicHeader.classList.remove('hidden');
+      }
+      
+      lastScrollTop = scrollTop;
+    }
+    
+    // Tambahkan event listener untuk scroll
+    window.addEventListener('scroll', handleScroll);
 
   document.addEventListener('DOMContentLoaded', () => {
     const setTodayDate = () => {
