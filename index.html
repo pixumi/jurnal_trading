@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="no-js">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Jurnal Trading</title>
+  
+  <!-- Script untuk mencegah flash putih di dark mode -->
+  <script>
+    // Periksa preferensi dark mode sebelum DOM dimuat
+    (function() {
+      // Hapus kelas no-js
+      document.documentElement.classList.remove('no-js');
+      
+      // Periksa preferensi dark mode
+      const isDarkMode = localStorage.getItem('darkMode') === 'true';
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark-mode');
+      }
+    })();
+  </script>
+  
   <style>
+    /* Sembunyikan konten hingga JS selesai memproses */
+    .no-js body {
+      visibility: hidden;
+    }
+    
     /* Header Dinamis */
     #dynamicHeader {
       position: fixed;
@@ -575,7 +596,7 @@
       color: #0277bd;
       margin-top: 0;
       margin-bottom: 16px;
-      font-size: 1.4em;
+      font-size: 2em;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -813,11 +834,10 @@
   </header>
   
   <div class="container">
-    <h1>📜Jurnal Trading📜</h1>
     
     <!-- Analytics Section -->
     <div class="analytics-container">
-      <h2 class="analytics-title">📊 Statistik</h2>
+      <h1 class="analytics-title">📊 Statistik</h1>
       <div class="analytics-grid">
         <div class="stat-box">
           <div class="stat-label">Total Trade</div>
