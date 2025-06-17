@@ -716,7 +716,7 @@ body.dark-mode .chart-labels {
 
 /* Warna baris tabel berdasarkan tanggal */
 .row-even-date {
-  background-color: #f3faff;
+  background-color: #ecf0f3;
 }
 
 .row-odd-date {
