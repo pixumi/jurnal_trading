@@ -5,9 +5,3 @@
 - `main.js`: Semua logic aplikasi, penyimpanan lokal, export/import, dsb
 
 > Setelah pemisahan file, mudah di-maintain dan scalable!
-
-
-## Testing
-
-Install dependencies sekali dengan `npm install` lalu jalankan `npm test` untuk
-mengeksekusi suite Jest.
