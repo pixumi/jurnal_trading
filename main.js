@@ -27,7 +27,13 @@ let isDarkMode = localStorage.getItem('darkMode') === 'true';
 let lastScrollTop = 0;
 
 function sortTradesByDate() {
-  trades.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sessionOrder = { 'New York': 0, 'London': 1, 'Asia': 2 };
+  trades.sort((a, b) => {
+    const dateDiff = new Date(b.date) - new Date(a.date);
+    if (dateDiff !== 0) return dateDiff;
+    const sessionDiff = (sessionOrder[a.session] ?? 3) - (sessionOrder[b.session] ?? 3);
+    return sessionDiff;
+  });
 }
 
 // Fungsi untuk memaksa input pair menjadi uppercase
