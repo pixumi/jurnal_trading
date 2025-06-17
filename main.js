@@ -78,7 +78,7 @@ function calculateAnalytics() {
 function renderTrades() {
     historyBody.innerHTML = '';
     if (trades.length === 0) {
-    historyBody.innerHTML = '<tr><td colspan="8">Belum ada history.</td></tr>';
+    historyBody.innerHTML = '<tr><td colspan="9">Belum ada history.</td></tr>';
     calculateAnalytics();
     return;
     }
@@ -107,6 +107,9 @@ function renderTrades() {
       let noteDisplay = notePreview.length > 10 ? notePreview.substring(0, 10) + '...' : notePreview;
 
        // Build row using DOM methods to avoid HTML injection
+      const noCell = document.createElement('td');
+      noCell.textContent = index + 1;
+      
       const pairCell = document.createElement('td');
       pairCell.textContent = data.pair;
 
@@ -148,6 +151,7 @@ function renderTrades() {
       actionCell.appendChild(editBtn);
       actionCell.appendChild(deleteBtn);
 
+      row.appendChild(noCell);
       row.appendChild(pairCell);
       row.appendChild(dateCell);
       row.appendChild(sessionCell);
