@@ -419,6 +419,7 @@ body.dark-mode textarea#modalText {
 @media (max-width: 590px) {
     .container {
      padding: 1rem;
+     padding-bottom: 30px;
     }
 
     .popup-modal .content {
