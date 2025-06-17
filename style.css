@@ -88,9 +88,9 @@ body.dark-mode {
   width: 95%;
   max-width: 850px;
   margin: 100px 40px;
-  padding: 0rem;
   padding-left: 16px;
   padding-right: 16px;
+  padding-bottom: 30px;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
