@@ -50,32 +50,6 @@ body.dark-mode .header-title {
   gap: 15px;
 }
 
-/* Tombol Export */
-.export-btn {
-  background-color: #0288d1;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  font-size: 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-body.dark-mode .export-btn {
-  background-color: #0ea5e9;
-}
-
-.export-btn:hover {
-  background-color: #0277bd;
-}
-
-body.dark-mode .export-btn:hover {
-  background-color: #0284c7;
-}
 
 /* Perbaikan warna teks di dark mode untuk tabel */
 body.dark-mode td {
@@ -142,7 +116,7 @@ form {
   display: grid;
   gap: 16px;
   margin-bottom: 30px;
-  align-items: center
+  align-items: center;
 }
 
 .input-row {
@@ -467,7 +441,7 @@ body.dark-mode textarea#modalText {
       gap: 8px;
     }
     
-    .export-btn {
+    .data-btn {
       padding: 6px 10px;
       font-size: 12px;
     }
