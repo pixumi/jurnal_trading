@@ -194,6 +194,16 @@ form.addEventListener('submit', function(e) {
     note: form.note.value.trim(),
   };
 
+  let currentTrades = trades.slice();
+  if (form.dataset.editing) {
+    currentTrades.splice(form.dataset.editing, 1);
+  }
+
+  if (!tradeLimits.canAddTrade(currentTrades, data.date, data.session)) {
+    alert('Limit trade untuk sesi atau hari ini telah tercapai');
+    return;
+  }
+
   if (form.dataset.editing) {
     trades[form.dataset.editing] = data;
     form.removeAttribute('data-editing');
