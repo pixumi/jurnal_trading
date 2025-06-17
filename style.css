@@ -416,7 +416,7 @@ body.dark-mode textarea#modalText {
     transform: scale(1.2);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 590px) {
     .container {
      padding: 1rem;
     }
