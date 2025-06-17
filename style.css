@@ -418,7 +418,7 @@ body.dark-mode textarea#modalText {
 
 @media (max-width: 590px) {
     .container {
-     width: calc(90% - 20px);
+     width: calc(94% - 20px);
      margin: 100px 10px;
      padding: 1rem;
      padding-bottom: 30px;
