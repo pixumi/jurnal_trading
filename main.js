@@ -26,6 +26,10 @@ let trades = JSON.parse(localStorage.getItem('trades')) || [];
 let isDarkMode = localStorage.getItem('darkMode') === 'true';
 let lastScrollTop = 0;
 
+function sortTradesByDate() {
+  trades.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
 // Fungsi untuk memaksa input pair menjadi uppercase
 function forceUppercaseInput() {
   const pairInput = document.getElementById('pair');
@@ -76,6 +80,7 @@ function calculateAnalytics() {
 }
 
 function renderTrades() {
+    sortTradesByDate();
     historyBody.innerHTML = '';
     if (trades.length === 0) {
     historyBody.innerHTML = '<tr><td colspan="9">Belum ada history.</td></tr>';
@@ -175,6 +180,7 @@ function renderTrades() {
 }
 
 function saveTrades() {
+  sortTradesByDate();
   localStorage.setItem('trades', JSON.stringify(trades));
   calculateAnalytics();
 }
@@ -266,11 +272,21 @@ darkModeToggle.addEventListener('change', toggleDarkMode);
 // Fungsi untuk export ke JSON
 function exportToJson() {
   const dataStr = JSON.stringify(trades, null, 2);
-  const blob = new Blob([dataStr], {type: 'application/json'});
+  const blob = new Blob([dataStr], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'jurnal_trading.json';
+
+  const pad = (n) => String(n).padStart(2, '0');
+  const now = new Date();
+  const rawDate = `${now.getFullYear()}/${pad(now.getMonth() + 1)}/${pad(now.getDate())}, ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+  const safeDate = rawDate
+    .replace(/[\\/]/g, '-') // replace / and \ with -
+    .replace(/:/g, '-')       // replace : with -
+    .replace(/,\s*/, '_');   // replace comma and space with _
+
+  a.download = `jurnal_trading_${safeDate}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
