@@ -716,19 +716,19 @@ body.dark-mode .chart-labels {
 
 /* Warna baris tabel berdasarkan tanggal */
 .row-even-date {
-  background-color: #ffffff;
-}
-
-.row-odd-date {
   background-color: #f3faff;
 }
 
+.row-odd-date {
+  background-color: #ffffff;
+}
+
 body.dark-mode .row-even-date {
-  background-color: #1e293b;
+  background-color: #2c3c54;
 }
 
 body.dark-mode .row-odd-date {
-  background-color: #28374d;
+  background-color: #1e293b; 
 }
 
 /* File input untuk import */
