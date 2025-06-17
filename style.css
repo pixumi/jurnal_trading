@@ -1,0 +1,780 @@
+/* Sembunyikan konten hingga JS selesai memproses */
+.no-js body {
+  visibility: hidden;
+}
+
+/* Header Dinamis */
+#dynamicHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+body.dark-mode #dynamicHeader {
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+}
+
+#dynamicHeader.hidden {
+  transform: translateY(-100%);
+}
+
+.header-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0288d1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+body.dark-mode .header-title {
+  color: #38bdf8;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Tombol Export */
+.export-btn {
+  background-color: #0288d1;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+body.dark-mode .export-btn {
+  background-color: #0ea5e9;
+}
+
+.export-btn:hover {
+  background-color: #0277bd;
+}
+
+body.dark-mode .export-btn:hover {
+  background-color: #0284c7;
+}
+
+/* Perbaikan warna teks di dark mode untuk tabel */
+body.dark-mode td {
+  color: #e2e8f0 !important;
+}
+
+body.dark-mode td.buy-box,
+body.dark-mode td.sell-box,
+body.dark-mode td.win-box,
+body.dark-mode td.loss-box {
+  color: inherit !important; /* Tetap gunakan warna asli untuk box khusus */
+}
+
+/* Penyesuaian container untuk header */
+.container {
+  margin-top: 70px; /* Ruang untuk header */
+}
+
+/* Style yang sudah ada sebelumnya */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #e0f7fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode {
+  background-color: #121826;
+}
+
+.container {
+  background-color: #fff;
+  width: 95%;
+  max-width: 750px;
+  margin: 100px 40px;
+  padding: 0rem;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .container {
+  background-color: #1e293b;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #0277bd;
+  margin-bottom: 24px;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode h1 {
+  color: #38bdf8;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 30px;
+  align-items: center
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode label {
+  color: #cbd5e1;
+}
+
+input, select, textarea {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  appearance: none;
+  resize: vertical;
+  font-family: inherit;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #0288d1;
+  outline: none;
+}
+
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+  border-color: #38bdf8;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+}
+
+.date-wrapper {
+  position: relative;
+}
+
+button {
+  background-color: #0288d1;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+body.dark-mode button {
+  background-color: #0ea5e9;
+}
+
+button:hover {
+  background-color: #0277bd;
+}
+
+body.dark-mode button:hover {
+  background-color: #0284c7;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode table {
+  border-color: #475569;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #b0bec5;
+  text-align: center;
+  vertical-align: middle;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode th,
+body.dark-mode td {
+  border-color: #475569;
+}
+
+th {
+  background-color: #b3e5fc;
+  color: #01579b;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode th {
+  background-color: #1e40af;
+  color: #dbeafe;
+}
+
+.buy-box {
+  background-color: #d0f0d2;
+  color: #256029;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .buy-box {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+.sell-box {
+  background-color: #f9c0c0;
+  color: #9c2b2b;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .sell-box {
+  background-color: #7f1d1d;
+  color: #fecaca;
+}
+
+.win-box {
+  background-color: #d0f0d2;
+  color: #256029;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .win-box {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
+
+.loss-box {
+  background-color: #f9c0c0;
+  color: #9c2b2b;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .loss-box {
+  background-color: #7f1d1d;
+  color: #fecaca;
+}
+
+.action-btn {
+  background-color: #eeeeee;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 0 2px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .action-btn {
+  background-color: #334155;
+  color: #e2e8f0;
+}
+
+.action-btn:hover {
+  background-color: #cccccc;
+}
+
+body.dark-mode .action-btn:hover {
+  background-color: #475569;
+}
+
+.note-cell {
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  color: #0288d1;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .note-cell {
+  color: #38bdf8;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1, 87, 155, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    color: #01579b;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .modal-content {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.modal-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 12px;
+    background: none;
+    border: none;
+    color: #01579b;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.2s ease;
+}
+
+body.dark-mode .modal-close {
+  color: #e2e8f0;
+}
+
+textarea#modalText {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 14px 10px 10px 10px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-top: 14px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode textarea#modalText {
+  background-color: #334155;
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+.modal-close:hover {
+    transform: scale(1.2);
+}
+
+@media (max-width: 600px) {
+    .container {
+     padding: 1rem;
+    }
+
+    .popup-model .content {
+        width: 90%;
+        padding: 1rem;
+    }
+    .note-cell {
+        max-width: 120px;
+    }
+    
+    #dynamicHeader {
+      padding: 10px 15px;
+    }
+    
+    .header-title {
+      font-size: 1rem;
+    }
+    
+    .header-actions {
+      gap: 8px;
+    }
+    
+    .export-btn {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.history-table {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: collapse;
+}  
+
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode-toggle span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .dark-mode-toggle span {
+  color: #cbd5e1;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: #0288d1;
+}
+
+body.dark-mode input:checked + .toggle-slider {
+  background-color: #0ea5e9;
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Analytics Section */
+.analytics-container {
+  background-color: #f5f9ff;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  border: 1px solid #b3e5fc;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .analytics-container {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.analytics-title {
+  text-align: center;
+  color: #0277bd;
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .analytics-title {
+  color: #38bdf8;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.stat-box {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  border: 1px solid #e1f5fe;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .stat-box {
+  background-color: #334155;
+  border: 1px solid #475569;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  color: #01579b;
+  margin-bottom: 6px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .stat-label {
+  color: #93c5fd;
+}
+
+.stat-value {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #0288d1;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .stat-value {
+  color: #38bdf8;
+}
+
+.winrate-value {
+  color: #256029;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .winrate-value {
+  color: #4ade80;
+}
+
+.lossrate-value {
+  color: #c62828;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .lossrate-value {
+  color: #f87171;
+}
+
+.profit-factor-value {
+  color: #2e7d32;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .profit-factor-value {
+  color: #4ade80;
+}
+
+.stat-subtext {
+  font-size: 0.8em;
+  color: #78909c;
+  margin-top: 4px;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .stat-subtext {
+  color: #94a3b8;
+}
+
+.analytics-chart {
+  margin-top: 20px;
+  height: 30px;
+  background-color: #e1f5fe;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .analytics-chart {
+  background-color: #334155;
+}
+
+.win-bar {
+  height: 100%;
+  background-color: #66bb6a;
+  transition: width 0.5s ease, background-color 0.3s ease;
+}
+
+body.dark-mode .win-bar {
+  background-color: #4ade80;
+}
+
+.loss-bar {
+  height: 100%;
+  background-color: #ef5350;
+  transition: width 0.5s ease, background-color 0.3s ease;
+}
+
+body.dark-mode .loss-bar {
+  background-color: #f87171;
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 0.85em;
+  color: #546e7a;
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .chart-labels {
+  color: #94a3b8;
+}
+
+/* Warna baris tabel berdasarkan tanggal */
+.row-even-date {
+  background-color: #ffffff;
+}
+
+.row-odd-date {
+  background-color: #f3faff;
+}
+
+body.dark-mode .row-even-date {
+  background-color: #1e293b;
+}
+
+body.dark-mode .row-odd-date {
+  background-color: #28374d;
+}
+
+/* File input untuk import */
+#importFileInput {
+  display: none;
+}
+
+/* Tombol Import/Export baru */
+.data-btn {
+  background-color: #0288d1;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+body.dark-mode .data-btn {
+  background-color: #0ea5e9;
+}
+
+.data-btn:hover {
+  background-color: #0277bd;
+}
+
+body.dark-mode .data-btn:hover {
+  background-color: #0284c7;
+}
+
+/* Penyesuaian header actions */
+.header-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .header-actions {
+    gap: 8px;
+  }
+  
+  .data-btn span:last-child {
+    display: none;
+  }
+}

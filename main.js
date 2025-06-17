@@ -1,0 +1,345 @@
+// Inisialisasi elemen DOM
+const form = document.getElementById('tradeForm');
+const historyBody = document.getElementById('historyBody');
+const modal = document.getElementById('modal');
+const modalText = document.getElementById('modalText');
+const modalClose = document.getElementById('modalClose');
+const darkModeToggle = document.getElementById('darkModeToggle');
+const exportJsonBtn = document.getElementById('exportJsonBtn');
+const importJsonBtn = document.getElementById('importJsonBtn');
+const importFileInput = document.getElementById('importFileInput');
+const dynamicHeader = document.getElementById('dynamicHeader');
+
+// Analytics elements
+const totalTradesEl = document.getElementById('totalTrades');
+const winTradesEl = document.getElementById('winTrades');
+const lossTradesEl = document.getElementById('lossTrades');
+const winrateEl = document.getElementById('winrate');
+const profitFactorEl = document.getElementById('profitFactor');
+const winBar = document.getElementById('winBar');
+const lossBar = document.getElementById('lossBar');
+const winPercentageEl = document.getElementById('winPercentage');
+const lossPercentageEl = document.getElementById('lossPercentage');
+
+// Inisialisasi data
+let trades = JSON.parse(localStorage.getItem('trades')) || [];
+let isDarkMode = localStorage.getItem('darkMode') === 'true';
+let lastScrollTop = 0;
+
+// Fungsi untuk memaksa input pair menjadi uppercase
+function forceUppercaseInput() {
+  const pairInput = document.getElementById('pair');
+  pairInput.addEventListener('input', function() {
+    const start = this.selectionStart;
+    const end = this.selectionEnd;
+    this.value = this.value.toUpperCase();
+    this.setSelectionRange(start, end);
+  });
+}
+
+// Function to calculate analytics
+function calculateAnalytics() {
+  const totalTrades = trades.length;
+  const winTrades = trades.filter(trade => trade.wl === "Win").length;
+  const lossTrades = totalTrades - winTrades;
+  
+  // Calculate winrate
+  const winrate = totalTrades > 0 ? (winTrades / totalTrades * 100) : 0;
+  
+  // Calculate profit factor
+  let totalWinRR = 0;
+  let totalLossRR = 0;
+  
+  trades.forEach(trade => {
+    if (trade.wl === "Win" && trade.rr) {
+      const rrParts = trade.rr.split(':');
+      if (rrParts.length === 2) {
+        totalWinRR += parseFloat(rrParts[0]);
+      }
+    } else if (trade.wl === "Loss") {
+      totalLossRR += 1;
+    }
+  });
+  
+  const profitFactor = totalLossRR > 0 ? (totalWinRR / totalLossRR) : totalWinRR > 0 ? Infinity : 0;
+  
+  // Update analytics UI
+  totalTradesEl.textContent = totalTrades;
+  winTradesEl.textContent = winTrades;
+  lossTradesEl.textContent = lossTrades;
+  winrateEl.textContent = winrate.toFixed(1) + '%';
+  
+  if (winrate >= 50) {
+    winrateEl.classList.add('winrate-value');
+    winrateEl.classList.remove('lossrate-value');
+  } else {
+    winrateEl.classList.add('lossrate-value');
+    winrateEl.classList.remove('winrate-value');
+  }
+  
+  profitFactorEl.textContent = profitFactor === Infinity ? '∞' : profitFactor.toFixed(2);
+  
+  // Update chart
+  const winPercentage = totalTrades > 0 ? (winTrades / totalTrades * 100) : 0;
+  const lossPercentage = 100 - winPercentage;
+  
+  winBar.style.width = winPercentage + '%';
+  lossBar.style.width = lossPercentage + '%';
+  
+  winPercentageEl.textContent = winPercentage.toFixed(1) + '%';
+  lossPercentageEl.textContent = lossPercentage.toFixed(1) + '%';
+}
+
+function renderTrades() {
+    historyBody.innerHTML = '';
+    if (trades.length === 0) {
+    historyBody.innerHTML = '<tr><td colspan="8">Belum ada history.</td></tr>';
+    calculateAnalytics();
+    return;
+    }
+
+    // Sorting trades by date descending
+    trades.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Untuk pewarnaan berdasarkan tanggal
+    let currentDate = null;
+    let dateGroupIndex = 0;
+    
+    trades.forEach((data, index) => {
+      if (currentDate !== data.date) {
+        currentDate = data.date;
+        dateGroupIndex = dateGroupIndex === 0 ? 1 : 0;
+      }
+      
+      const entryClass = data.entry === "Buy" ? "buy-box" : "sell-box";
+      const wlClass = data.wl === "Win" ? "win-box" : "loss-box";
+      const rowClass = dateGroupIndex === 0 ? "row-even-date" : "row-odd-date";
+
+      const row = document.createElement('tr');
+      row.className = rowClass;
+
+      let notePreview = data.note ? data.note : '';
+      let noteDisplay = notePreview.length > 10 ? notePreview.substring(0, 10) + '...' : notePreview;
+
+      row.innerHTML = `
+      <td>${data.pair}</td>
+      <td>${data.date}</td>
+      <td>${data.session}</td>
+      <td><span class="${entryClass}">${data.entry}</span></td>
+      <td><span class="${wlClass}">${data.wl}</span></td>
+      <td>${data.rr}</td>
+      <td class="note-cell" data-index="${index}">${noteDisplay}</td>
+      <td>
+        <button class="action-btn" onclick="editTrade(${index})">✏️</button>
+        <button class="action-btn" onclick="deleteTrade(${index})">🗑️</button>
+      </td>
+      `;
+      historyBody.appendChild(row);
+    });
+
+    document.querySelectorAll('.note-cell').forEach(cell => {
+      cell.addEventListener('click', function() {
+        const idx = this.dataset.index;
+        const fullNote = trades[idx].note || '(Tidak ada catatan tambahan)';
+        modalText.value = fullNote;
+        modal.style.display = 'flex';
+      });
+    });
+    
+    calculateAnalytics();
+}
+
+function saveTrades() {
+  localStorage.setItem('trades', JSON.stringify(trades));
+  calculateAnalytics();
+}
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const data = {
+    pair: form.pair.value.toUpperCase(),
+    date: form.date.value,
+    session: form.session.value,
+    entry: form.entry.value,
+    wl: form.wl.value,
+    rr: form.rr.value,
+    note: form.note.value.trim(),
+  };
+
+  if (form.dataset.editing) {
+    trades[form.dataset.editing] = data;
+    form.removeAttribute('data-editing');
+  } else {
+    trades.push(data);
+  }
+
+  saveTrades();
+  renderTrades();
+  form.reset();
+});
+
+window.editTrade = function(index) {
+  const data = trades[index];
+  form.pair.value = data.pair;
+  form.date.value = data.date;
+  form.session.value = data.session;
+  form.entry.value = data.entry;
+  form.wl.value = data.wl;
+  form.rr.value = data.rr;
+  form.note.value = data.note || '';
+  form.dataset.editing = index;
+  
+  form.scrollIntoView({ behavior: 'smooth' });
+};
+
+window.deleteTrade = function(index) {
+  if (confirm("Yakin ingin menghapus trade ini?")) {
+    trades.splice(index, 1);
+    saveTrades();
+    renderTrades();
+  }
+};
+
+// Modal close event
+modalClose.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
+// Dark mode toggle functionality
+function toggleDarkMode() {
+  isDarkMode = !isDarkMode;
+  document.body.classList.toggle('dark-mode', isDarkMode);
+  localStorage.setItem('darkMode', isDarkMode);
+  darkModeToggle.checked = isDarkMode;
+}
+
+// Initialize dark mode
+function initDarkMode() {
+  document.body.classList.toggle('dark-mode', isDarkMode);
+  darkModeToggle.checked = isDarkMode;
+}
+
+// Set up event listeners
+darkModeToggle.addEventListener('change', toggleDarkMode);
+
+// Fungsi untuk export ke JSON
+function exportToJson() {
+  const dataStr = JSON.stringify(trades, null, 2);
+  const blob = new Blob([dataStr], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'jurnal_trading.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Fungsi untuk import dari JSON
+function importFromJson(file) {
+  const reader = new FileReader();
+  
+  reader.onload = function(e) {
+    try {
+      const importedTrades = JSON.parse(e.target.result);
+      
+      if (!Array.isArray(importedTrades)) {
+        throw new Error('Format file tidak valid');
+      }
+      
+      const isValid = importedTrades.every(trade => 
+        trade.pair && trade.date && trade.session && 
+        trade.entry && trade.wl && trade.rr
+      );
+      
+      if (!isValid) {
+        throw new Error('Data dalam file tidak valid');
+      }
+      
+      trades = importedTrades;
+      saveTrades();
+      renderTrades();
+      alert('Data berhasil diimpor!');
+    } catch (error) {
+      alert('Terjadi kesalahan saat mengimpor data: ' + error.message);
+    }
+  };
+  
+  reader.readAsText(file);
+}
+
+// Event listener untuk tombol export JSON
+exportJsonBtn.addEventListener('click', exportToJson);
+
+// Event listener untuk tombol import JSON
+importJsonBtn.addEventListener('click', () => {
+  importFileInput.click();
+});
+
+// Event listener untuk file input
+importFileInput.addEventListener('change', (e) => {
+  if (e.target.files.length > 0) {
+    importFromJson(e.target.files[0]);
+    importFileInput.value = '';
+  }
+});
+
+// Fungsi untuk mengontrol header saat scroll
+function handleScroll() {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  
+  if (scrollTop > lastScrollTop && scrollTop > 50) {
+    dynamicHeader.classList.add('hidden');
+  } else {
+    dynamicHeader.classList.remove('hidden');
+  }
+  
+  lastScrollTop = scrollTop;
+}
+
+window.addEventListener('scroll', handleScroll);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const setTodayDate = () => {
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.getElementById('date');
+      if (dateInput) dateInput.value = today;
+  };
+
+  setTodayDate();
+  forceUppercaseInput();
+  renderTrades();
+  initDarkMode();
+
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+      form.addEventListener('submit', () => {
+          setTimeout(setTodayDate, 0);
+      });
+  });
+
+  window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+          setTodayDate();
+      }
+  });
+});
+
+const rrInput = document.getElementById('rr');
+rrInput.addEventListener('input', () => {
+  const regex = /^\d+:1$/;
+  if (!regex.test(rrInput.value)) {
+    rrInput.setCustomValidity('Format RR harus "X:1", contoh 2:1');
+  } else {
+    rrInput.setCustomValidity('');
+  }
+});
+
+renderTrades();
