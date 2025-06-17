@@ -1,19 +1,3 @@
-{
-  "name": "jurnal_trading",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "test": "jest"
-  },
-  "devDependencies": {
-    "jest": "^29.6.1"
-  }
-}
-src/analytics.js
-Baru
-+34
--0
-
 function computeAnalytics(trades) {
   const totalTrades = trades.length;
   const winTrades = trades.filter(trade => trade.wl === "Win").length;
