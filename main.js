@@ -37,31 +37,16 @@ function forceUppercaseInput() {
   });
 }
 
-// Function to calculate analytics
+// Function to update analytics UI using computeAnalytics from analytics module
 function calculateAnalytics() {
-  const totalTrades = trades.length;
-  const winTrades = trades.filter(trade => trade.wl === "Win").length;
-  const lossTrades = totalTrades - winTrades;
-  
-  // Calculate winrate
-  const winrate = totalTrades > 0 ? (winTrades / totalTrades * 100) : 0;
-  
-  // Calculate profit factor
-  let totalWinRR = 0;
-  let totalLossRR = 0;
-  
-  trades.forEach(trade => {
-    if (trade.wl === "Win" && trade.rr) {
-      const rrParts = trade.rr.split(':');
-      if (rrParts.length === 2) {
-        totalWinRR += parseFloat(rrParts[0]);
-      }
-    } else if (trade.wl === "Loss") {
-      totalLossRR += 1;
-    }
-  });
-  
-  const profitFactor = totalLossRR > 0 ? (totalWinRR / totalLossRR) : totalWinRR > 0 ? Infinity : 0;
+  // computeAnalytics is provided by src/analytics.js
+  const {
+    totalTrades,
+    winTrades,
+    lossTrades,
+    winrate,
+    profitFactor
+  } = computeAnalytics(trades);
   
   // Update analytics UI
   totalTradesEl.textContent = totalTrades;
