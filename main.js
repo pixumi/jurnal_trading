@@ -121,20 +121,59 @@ function renderTrades() {
       let notePreview = data.note ? data.note : '';
       let noteDisplay = notePreview.length > 10 ? notePreview.substring(0, 10) + '...' : notePreview;
 
-      row.innerHTML = `
-      <td>${data.pair}</td>
-      <td>${data.date}</td>
-      <td>${data.session}</td>
-      <td><span class="${entryClass}">${data.entry}</span></td>
-      <td><span class="${wlClass}">${data.wl}</span></td>
-      <td>${data.rr}</td>
-      <td class="note-cell" data-index="${index}">${noteDisplay}</td>
-      <td>
-        <button class="action-btn" onclick="editTrade(${index})">✏️</button>
-        <button class="action-btn" onclick="deleteTrade(${index})">🗑️</button>
-      </td>
-      `;
+       // Build row using DOM methods to avoid HTML injection
+      const pairCell = document.createElement('td');
+      pairCell.textContent = data.pair;
+
+      const dateCell = document.createElement('td');
+      dateCell.textContent = data.date;
+
+      const sessionCell = document.createElement('td');
+      sessionCell.textContent = data.session;
+
+      const entryCell = document.createElement('td');
+      const entrySpan = document.createElement('span');
+      entrySpan.className = entryClass;
+      entrySpan.textContent = data.entry;
+      entryCell.appendChild(entrySpan);
+
+      const wlCell = document.createElement('td');
+      const wlSpan = document.createElement('span');
+      wlSpan.className = wlClass;
+      wlSpan.textContent = data.wl;
+      wlCell.appendChild(wlSpan);
+
+      const rrCell = document.createElement('td');
+      rrCell.textContent = data.rr;
+
+      const noteCell = document.createElement('td');
+      noteCell.className = 'note-cell';
+      noteCell.dataset.index = index;
+      noteCell.textContent = noteDisplay;
+
+      const actionCell = document.createElement('td');
+      const editBtn = document.createElement('button');
+      editBtn.className = 'action-btn';
+      editBtn.textContent = '✏️';
+      editBtn.addEventListener('click', () => editTrade(index));
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'action-btn';
+      deleteBtn.textContent = '🗑️';
+      deleteBtn.addEventListener('click', () => deleteTrade(index));
+      actionCell.appendChild(editBtn);
+      actionCell.appendChild(deleteBtn);
+
+      row.appendChild(pairCell);
+      row.appendChild(dateCell);
+      row.appendChild(sessionCell);
+      row.appendChild(entryCell);
+      row.appendChild(wlCell);
+      row.appendChild(rrCell);
+      row.appendChild(noteCell);
+      row.appendChild(actionCell);
+
       historyBody.appendChild(row);
+
     });
 
     document.querySelectorAll('.note-cell').forEach(cell => {
