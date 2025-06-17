@@ -83,9 +83,6 @@ function renderTrades() {
     return;
     }
 
-    // Sorting trades by date descending
-    trades.sort((a, b) => new Date(b.date) - new Date(a.date));
-
     // Untuk pewarnaan berdasarkan tanggal
     let currentDate = null;
     let dateGroupIndex = 0;
@@ -208,7 +205,7 @@ form.addEventListener('submit', function(e) {
     trades[form.dataset.editing] = data;
     form.removeAttribute('data-editing');
   } else {
-    trades.push(data);
+    trades.unshift(data);
   }
 
   saveTrades();
