@@ -439,10 +439,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const rrInput = document.getElementById('rr');
 rrInput.addEventListener('input', () => {
-  // Format baru: risk:reward (contoh: 1:2, 1:1.5)
+  // Format: risk:reward (contoh: 1:2, 1:1.5)
   const regex = /^\d+(\.\d{1,2})?:\d+(\.\d{1,2})?$/;
-  if (!regex.test(rrInput.value)) {
-    rrInput.setCustomValidity('Format RR harus "risk:reward", contoh 1:2 / 1:1.5');
+  
+  // Validasi tambahan: pastikan risk selalu 1
+  const isValidFormat = regex.test(rrInput.value);
+  const [riskPart] = rrInput.value.split(':');
+  const isRiskOne = riskPart === '1';
+  
+  if (!isValidFormat || !isRiskOne) {
+    rrInput.setCustomValidity('Format RR harus "1:X" (contoh 1:2, 1:3.5). Risk harus 1.');
   } else {
     rrInput.setCustomValidity('');
   }
