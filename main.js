@@ -448,7 +448,7 @@ rrInput.addEventListener('input', () => {
   const isRiskOne = riskPart === '1';
   
   if (!isValidFormat || !isRiskOne) {
-    rrInput.setCustomValidity('Format RR harus "1:X" (contoh 1:2, 1:3.5). Risk harus 1.');
+    rrInput.setCustomValidity('Format RR harus 1:X (contoh 1:2, 1:3.5).');
   } else {
     rrInput.setCustomValidity('');
   }

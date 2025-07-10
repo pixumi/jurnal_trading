@@ -9,7 +9,7 @@ function getSessionCounts(trades) {
 }
 
 function getSessionLimits(counts) {
-  const base = { Asia: 1, London: 2, 'New York': 2 };
+  const base = { Asia: 2, London: 2, 'New York': 2 };
   const limits = { ...base };
 
   const asiaLeft = Math.max(0, base.Asia - counts.Asia);
