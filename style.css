@@ -773,13 +773,13 @@ body.dark-mode .data-btn:hover {
 }
 
 .risk-box {
-  background-color: #ff6b6b; /* Warna merah */
-  color: white;
+  background-color: #9c2b2b; /* Warna merah */
+  color: #7f1d1d;
 }
 
 .reward-box {
-  background-color: #51cf66; /* Warna hijau */
-  color: white;
+  background-color: #256029; /* Warna hijau */
+  color: #14532d;
 }
 
 /* Perataan kolom RR */
