@@ -26,6 +26,26 @@ let trades = JSON.parse(localStorage.getItem('trades')) || [];
 let isDarkMode = localStorage.getItem('darkMode') === 'true';
 let lastScrollTop = 0;
 
+// Fungsi untuk mengkonversi format RR lama (reward:risk) menjadi baru (risk:reward)
+function convertLegacyRR() {
+  const isConverted = localStorage.getItem('rrConverted');
+  if (isConverted) return;
+
+  trades = trades.map(trade => {
+    if (trade.rr && trade.rr.includes(':')) {
+      const [first, second] = trade.rr.split(':');
+      trade.rr = `${second}:${first}`; // Balik urutan menjadi risk:reward
+    }
+    return trade;
+  });
+
+  localStorage.setItem('trades', JSON.stringify(trades));
+  localStorage.setItem('rrConverted', 'true');
+}
+
+// Jalankan konversi data lama
+convertLegacyRR();
+
 function sortTradesByDate() {
   const sessionOrder = { 'New York': 0, 'London': 1, 'Asia': 2 };
   trades.sort((a, b) => {
@@ -391,9 +411,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const rrInput = document.getElementById('rr');
 rrInput.addEventListener('input', () => {
-  const regex = /^\d+(\.\d{1,2})?:1$/;
+  // Format baru: risk:reward (contoh: 1:2, 1:1.5)
+  const regex = /^\d+(\.\d{1,2})?:\d+(\.\d{1,2})?$/;
   if (!regex.test(rrInput.value)) {
-    rrInput.setCustomValidity('Format RR harus "X:1", contoh 2:1 / 2.5:1');
+    rrInput.setCustomValidity('Format RR harus "risk:reward", contoh 1:2 / 1:1.5');
   } else {
     rrInput.setCustomValidity('');
   }
