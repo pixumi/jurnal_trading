@@ -393,7 +393,7 @@ const rrInput = document.getElementById('rr');
 rrInput.addEventListener('input', () => {
   const regex = /^\d+(\.\d{1,2})?:1$/;
   if (!regex.test(rrInput.value)) {
-    rrInput.setCustomValidity('Format RR harus "X:1", contoh 2:1');
+    rrInput.setCustomValidity('Format RR harus "X:1", contoh 2:1 / 2.5:1');
   } else {
     rrInput.setCustomValidity('');
   }
