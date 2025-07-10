@@ -773,15 +773,23 @@ body.dark-mode .data-btn:hover {
 }
 
 .risk-box {
-  background-color: #9c2b2b; /* Warna merah */
-  color: #7f1d1d;
+  background-color: #f9c0c0; /* Warna merah */
+  color: #9c2b2b;
 }
 
+body.dark-mode .risk-box {
+  background-color: #7f1d1d;
+  color: #fecaca;
+}
 .reward-box {
-  background-color: #256029; /* Warna hijau */
-  color: #14532d;
+  background-color: #d0f0d2; /* Warna hijau */
+  color: #256029;
 }
 
+body.dark-mode .reward-box {
+  background-color: #14532d;
+  color: #bbf7d0;
+}
 /* Perataan kolom RR */
 .rr-cell {
   text-align: left;
