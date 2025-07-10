@@ -755,3 +755,34 @@ body.dark-mode .data-btn:hover {
     display: none;
   }
 }
+
+/* Style untuk kontainer RR */
+.rr-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2px;
+}
+
+.risk-box, .reward-box {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+.risk-box {
+  background-color: #ff6b6b; /* Warna merah */
+  color: white;
+}
+
+.reward-box {
+  background-color: #51cf66; /* Warna hijau */
+  color: white;
+}
+
+/* Perataan kolom RR */
+.rr-cell {
+  text-align: left;
+}

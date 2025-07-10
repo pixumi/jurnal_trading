@@ -159,8 +159,36 @@ function renderTrades() {
       wlSpan.textContent = data.wl;
       wlCell.appendChild(wlSpan);
 
+      // RR Cell baru dengan kontainer terpisah
       const rrCell = document.createElement('td');
-      rrCell.textContent = data.rr;
+      rrCell.className = 'rr-cell';
+      
+      // Pisahkan RR menjadi risk dan reward
+      const [risk, reward] = data.rr.split(':');
+      
+      // Buat container untuk RR
+      const rrContainer = document.createElement('div');
+      rrContainer.className = 'rr-container';
+      
+      // Buat elemen untuk risk
+      const riskBox = document.createElement('span');
+      riskBox.className = 'risk-box';
+      riskBox.textContent = risk;
+      
+      // Buat elemen untuk colon separator
+      const colon = document.createElement('span');
+      colon.textContent = ':';
+      
+      // Buat elemen untuk reward
+      const rewardBox = document.createElement('span');
+      rewardBox.className = 'reward-box';
+      rewardBox.textContent = reward;
+      
+      // Gabungkan semua elemen
+      rrContainer.appendChild(riskBox);
+      rrContainer.appendChild(colon);
+      rrContainer.appendChild(rewardBox);
+      rrCell.appendChild(rrContainer);
 
       const noteCell = document.createElement('td');
       noteCell.className = 'note-cell';
