@@ -796,20 +796,21 @@ body.dark-mode .reward-box {
 }
 
 /* ===== STYLING QUOTE CONTAINER ===== */
-.quote-container {
+body .quote-container {
   margin: 20px 0;
   padding: 3px;
-  background-color: #dfdfdf;
-  color: #000000;
+  background-color: #dfdfdf !important;
+  color: #000000 !important;
   border-left: 4px solid #4CAF50;
   border-radius: 4px;
   text-align: center;
   font-family: 'Comic Neue', cursive; /* Gunakan font impor */
+  transition: all 0.3s ease;
 }
 
-.dark-mode .quote-container {
-  background-color: #333;
-  color: #f0f0f0;
+body .dark-mode .quote-container {
+  background-color: #333 !important;
+  color: #f0f0f0 !important;
   border-left-color: #66BB6A;
 }
 
@@ -818,4 +819,5 @@ body.dark-mode .reward-box {
   font-size: 1.1em;
   font-weight: 700; /* Tebal seperti Comic Sans MS */
   line-height: 1.4;
+  transition: all 0.3s ease;
 }
