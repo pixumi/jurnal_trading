@@ -804,7 +804,7 @@ body .quote-container {
   border-left: 4px solid #4CAF50;
   border-radius: 4px;
   text-align: center;
-  font-family: 'Comic Neue', cursive; /* Gunakan font impor */
+  font-family: 'Comic Neue', cursive, sans-serif; /* Gunakan font impor */
   transition: all 0.3s ease;
 }
 
