@@ -808,7 +808,7 @@ body .quote-container {
   transition: all 0.3s ease;
 }
 
-body .dark-mode .quote-container {
+body.dark-mode .quote-container {
   background-color: #333 !important;
   color: #f0f0f0 !important;
   border-left-color: #66BB6A;
