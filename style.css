@@ -794,3 +794,27 @@ body.dark-mode .reward-box {
 .rr-cell {
   text-align: left;
 }
+
+/* ===== STYLING QUOTE CONTAINER ===== */
+.quote-container {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-left: 4px solid #4CAF50;
+  border-radius: 4px;
+  text-align: center;
+  font-family: 'Comic Neue', cursive; /* Gunakan font impor */
+}
+
+.dark-mode .quote-container {
+  background-color: #333;
+  color: #f0f0f0;
+  border-left-color: #66BB6A;
+}
+
+.quote-container p {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 700; /* Tebal seperti Comic Sans MS */
+  line-height: 1.4;
+}
