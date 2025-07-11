@@ -798,7 +798,7 @@ body.dark-mode .reward-box {
 /* ===== STYLING QUOTE CONTAINER ===== */
 .quote-container {
   margin: 20px 0;
-  padding: 15px;
+  padding: 5px;
   background-color: #dfdfdf;
   color: #000000;
   border-left: 4px solid #4CAF50;
