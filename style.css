@@ -3,6 +3,12 @@
   visibility: hidden;
 }
 
+.comic-neue-bold {
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* Header Dinamis */
 #dynamicHeader {
   position: fixed;
